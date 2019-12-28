@@ -58,7 +58,5 @@ class Document: NSDocument {
         
         self.contents = contents
     }
-
-
 }
 
