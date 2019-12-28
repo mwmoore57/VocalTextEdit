@@ -9,19 +9,32 @@
 import Cocoa
 
 class ViewController: NSViewController {
+    
+    let speechSynthesizer = NSSpeechSynthesizer()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBOutlet var textView: NSTextView!
+    
+    var contents: String? {
+        get {
+            return textView.string
+        }
+        set {
+            textView.string = newValue ?? ""
+        }
     }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+    
+    @IBAction func speakButtonClicked(_ sender: NSButton) {
+        print("I should speak \(textView.string)")
+        let contents = textView.string
+        if !contents.isEmpty {
+            speechSynthesizer.startSpeaking(contents)
+        } else {
+            speechSynthesizer.startSpeaking("The document is empty.")
         }
     }
 
-
+    @IBAction func stopButtonClicked(_ sender: NSButton) {
+        speechSynthesizer.stopSpeaking()
+    }
 }
 
